@@ -1,0 +1,18 @@
+<app-nav-bar />
+
+<main>
+  <router-outlet />
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p>{{ 'footer.builtWith' | translate }}</p>
+    <a href="https://github.com/VhMuzini" target="_blank" rel="noopener">{{ 'footer.sourceCode' | translate }} ↗</a>
+  </div>
+</footer>
+
+@if (notifications.message(); as message) {
+  <div class="toast" role="alert">
+    {{ message }}
+  </div>
+}
