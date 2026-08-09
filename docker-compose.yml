@@ -1,0 +1,19 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - '3333:3333'
+    environment:
+      - PORT=3333
+      - CORS_ORIGIN=http://localhost:4200
+      - POKEAPI_BASE_URL=https://pokeapi.co/api/v2
+      - CACHE_TTL_SECONDS=3600
+    restart: unless-stopped
+
+  web:
+    build: ./frontend
+    ports:
+      - '4200:80'
+    depends_on:
+      - api
+    restart: unless-stopped
