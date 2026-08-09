@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Icones do PWA sao gerados a partir de icon-assets/*.b64 no postinstall
+# (ver scripts/generate-icons.js) - nao versionar os binarios direto.
+/public/icons/*.png
+/public/favicon.ico
