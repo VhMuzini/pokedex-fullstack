@@ -1,0 +1,18 @@
+<section class="container page">
+  <h1>{{ 'favorites.title' | translate }}</h1>
+  <p class="subtitle">{{ 'favorites.subtitle' | translate }}</p>
+
+  @if (items().length === 0) {
+    <div class="empty">
+      <h2>{{ 'favorites.empty.title' | translate }}</h2>
+      <p>{{ 'favorites.empty.body' | translate }}</p>
+      <a routerLink="/" class="cta">{{ 'favorites.empty.cta' | translate }}</a>
+    </div>
+  } @else {
+    <div class="grid">
+      @for (pokemon of items(); track pokemon.id) {
+        <app-pokemon-card [pokemon]="pokemon" [isFavorite]="true" (favoriteToggled)="remove(pokemon)" />
+      }
+    </div>
+  }
+</section>
