@@ -1,0 +1,85 @@
+<section class="hero">
+  <div class="container hero__inner">
+    <span class="hero__eyebrow mono-tag">{{ 'hero.eyebrow' | translate }}</span>
+    <h1 class="hero__title">{{ 'hero.title' | translate }}</h1>
+    <p class="hero__subtitle">{{ 'hero.subtitle' | translate }}</p>
+
+    <dl class="hero__stats">
+      <div>
+        <dt class="mono-tag">1302+</dt>
+        <dd>{{ 'hero.stat.species' | translate }}</dd>
+      </div>
+      <div>
+        <dt class="mono-tag">18</dt>
+        <dd>{{ 'hero.stat.types' | translate }}</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="controls container">
+  <label class="search">
+    <span class="search__cursor" aria-hidden="true">&gt;</span>
+    <input
+      type="search"
+      [placeholder]="'search.placeholder' | translate"
+      (input)="onSearchInput($event)"
+    />
+  </label>
+
+  <div class="chips" role="group">
+    <button
+      type="button"
+      class="chip"
+      [class.chip--active]="activeType() === null"
+      (click)="selectType(null)"
+    >
+      {{ 'search.filterAll' | translate }}
+    </button>
+    @for (type of types(); track type) {
+      <button
+        type="button"
+        class="chip"
+        [class.chip--active]="activeType() === type"
+        (click)="selectType(type)"
+      >
+        {{ type }}
+      </button>
+    }
+  </div>
+</section>
+
+<section class="container" id="grid-top">
+  @if (loading()) {
+    <app-loading-spinner label="detail.loading" />
+  } @else {
+    @if (response(); as res) {
+      @if (res.results.length === 0) {
+        <div class="empty">
+          <h2>{{ 'search.noResults.title' | translate }}</h2>
+          <p>{{ 'search.noResults.body' | translate }}</p>
+        </div>
+      } @else {
+        <div class="grid">
+          @for (pokemon of res.results; track pokemon.id) {
+            <app-pokemon-card
+              [pokemon]="pokemon"
+              [isFavorite]="favorites.isFavorite(pokemon.id)"
+              (favoriteToggled)="toggleFavorite(pokemon)"
+            />
+          }
+        </div>
+
+        <nav class="pagination">
+          <button type="button" (click)="goToPage(res.page - 1)" [disabled]="res.page <= 1">
+            {{ 'pagination.prev' | translate }}
+          </button>
+          <span class="mono-tag">{{ 'pagination.pageOf' | translate: { current: res.page, total: res.totalPages } }}</span>
+          <button type="button" (click)="goToPage(res.page + 1)" [disabled]="res.page >= res.totalPages">
+            {{ 'pagination.next' | translate }}
+          </button>
+        </nav>
+      }
+    }
+  }
+</section>
