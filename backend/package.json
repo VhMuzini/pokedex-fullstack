@@ -16,7 +16,7 @@
     "typescript",
     "pokeapi"
   ],
-  "author": "Victor Muzini",
+  "author": "VhMuzini",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
