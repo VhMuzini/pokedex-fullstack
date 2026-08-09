@@ -1,0 +1,263 @@
+.detail {
+  padding-top: 28px;
+  padding-bottom: 64px;
+  max-width: 780px;
+}
+
+.back {
+  display: inline-block;
+  color: var(--text-on-ink-dim);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 24px;
+
+  &:hover {
+    color: var(--coral);
+  }
+}
+
+.error {
+  color: var(--text-on-ink-dim);
+  padding: 48px 0;
+}
+
+.specimen {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
+.specimen__art {
+  flex: 0 0 auto;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink-2);
+  border-radius: var(--radius-md);
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.4));
+  }
+}
+
+.specimen__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stamp {
+  font-size: 13px;
+  color: var(--gold);
+}
+
+h1 {
+  margin-top: 6px;
+  font-size: 32px;
+  text-transform: capitalize;
+}
+
+.genus {
+  margin-top: 2px;
+  color: var(--text-on-ink-dim);
+  font-size: 14px;
+}
+
+.types {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.tag--gold {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+}
+
+.flavor {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-on-ink);
+  max-width: 48ch;
+}
+
+.metrics {
+  display: flex;
+  gap: 28px;
+  margin-top: 20px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .label {
+    font-size: 11px;
+    color: var(--text-on-ink-dim);
+  }
+}
+
+.fav-btn {
+  margin-top: 24px;
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text-on-ink-dim);
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: var(--coral);
+  }
+
+  &--active {
+    color: var(--coral);
+    border-color: var(--coral);
+  }
+}
+
+.panel {
+  margin-top: 28px;
+
+  h2 {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-on-ink-dim);
+    margin-bottom: 14px;
+  }
+}
+
+.stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  li {
+    display: grid;
+    grid-template-columns: 100px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+}
+
+.stat-name {
+  color: var(--text-on-ink-dim);
+  font-size: 11px;
+}
+
+.stat-value {
+  text-align: right;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--ink-2);
+  overflow: hidden;
+}
+
+.bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--moss), var(--gold));
+  border-radius: 999px;
+}
+
+.pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  li {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
+}
+
+.hidden-tag {
+  color: var(--text-on-ink-dim);
+  font-size: 11px;
+}
+
+.muted {
+  color: var(--text-on-ink-dim);
+  font-size: 14px;
+}
+
+.evolution {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.evo-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--text-on-ink);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-size: 12px;
+  text-transform: capitalize;
+
+  &:hover {
+    border-color: var(--coral);
+  }
+}
+
+.evo-arrow {
+  color: var(--text-on-ink-dim);
+}
+
+.link-btn {
+  margin-top: 12px;
+  background: none;
+  border: none;
+  color: var(--coral);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
