@@ -1,0 +1,109 @@
+// ============================================================
+// Pokédex — design tokens
+// Direcao: "terminal de campo de um pesquisador" — um catalogador
+// robusto, nao o app de fã oficial. Papel + tinta teal-grafite,
+// numeros de especime como carimbo circular, dados em monoespacada.
+// ============================================================
+
+:root {
+  // Superficies
+  --ink: #182527;
+  --ink-2: #142023;
+  --panel: #1f3236;
+  --panel-border: #2c454a;
+  --paper: #f3ecdd;
+  --paper-dim: #e8dfc9;
+
+  // Acentos
+  --coral: #e8543d;
+  --coral-dark: #c43f2b;
+  --moss: #5c8a6e;
+  --gold: #c79b3b;
+  --fog: #8ea8a4;
+
+  // Texto
+  --text-on-ink: #f3ecdd;
+  --text-on-ink-dim: #9fb3af;
+  --text-on-paper: #1b2a2e;
+  --text-on-paper-dim: #4f5f5c;
+
+  // Tipografia
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  // Escala
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 1px 2px rgba(20, 32, 35, 0.4), 0 8px 24px -8px rgba(20, 32, 35, 0.45);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+// carimbo mono usado em numeros de dex, contadores, badges de dados
+.mono-tag {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
