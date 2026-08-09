@@ -1,0 +1,119 @@
+<div class="container detail">
+  <a routerLink="/" class="back">&larr; {{ 'detail.back' | translate }}</a>
+
+  @if (loading()) {
+    <app-loading-spinner label="detail.loading" />
+  } @else if (errored() || !pokemon()) {
+    <p class="error">{{ 'detail.notFound' | translate }}</p>
+  } @else {
+  @if (pokemon(); as p) {
+    <header class="specimen">
+      <div class="specimen__art">
+        <img [src]="p.artwork ?? p.sprite" [alt]="p.name" width="220" height="220" />
+      </div>
+
+      <div class="specimen__info">
+        <span class="stamp mono-tag">#{{ p.id.toString().padStart(3, '0') }}</span>
+
+        <h1>{{ p.name }}</h1>
+        @if (p.species.genus) {
+          <p class="genus">{{ p.species.genus }}</p>
+        }
+
+        <div class="types">
+          @for (type of p.types; track type) {
+            <app-type-badge [type]="type" />
+          }
+          @if (p.species.isLegendary) {
+            <span class="tag tag--gold">{{ 'detail.legendary' | translate }}</span>
+          }
+          @if (p.species.isMythical) {
+            <span class="tag tag--gold">{{ 'detail.mythical' | translate }}</span>
+          }
+        </div>
+
+        @if (p.species.flavorText) {
+          <p class="flavor">&ldquo;{{ p.species.flavorText }}&rdquo;</p>
+        }
+
+        <div class="metrics">
+          <div>
+            <span class="mono-tag label">{{ 'detail.height' | translate }}</span>
+            <span>{{ p.height / 10 }} m</span>
+          </div>
+          <div>
+            <span class="mono-tag label">{{ 'detail.weight' | translate }}</span>
+            <span>{{ p.weight / 10 }} kg</span>
+          </div>
+        </div>
+
+        <button type="button" class="fav-btn" [class.fav-btn--active]="favorites.isFavorite(p.id)" (click)="toggleFavorite()">
+          ★ {{ (favorites.isFavorite(p.id) ? 'detail.favorite.remove' : 'detail.favorite.add') | translate }}
+        </button>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>{{ 'detail.stats' | translate }}</h2>
+      <ul class="stats">
+        @for (stat of p.stats; track stat.name) {
+          <li>
+            <span class="mono-tag stat-name">{{ stat.name }}</span>
+            <div class="bar">
+              <div class="bar__fill" [style.width.%]="(stat.baseStat / maxStat) * 100"></div>
+            </div>
+            <span class="mono-tag stat-value">{{ stat.baseStat }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>{{ 'detail.abilities' | translate }}</h2>
+      <ul class="pill-list">
+        @for (ability of p.abilities; track ability.name) {
+          <li>
+            {{ ability.name }}
+            @if (ability.isHidden) {
+              <span class="hidden-tag">({{ 'detail.hiddenAbility' | translate }})</span>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>{{ 'detail.evolution' | translate }}</h2>
+      @if (p.evolutionChain.length <= 1) {
+        <p class="muted">{{ 'detail.evolution.none' | translate }}</p>
+      } @else {
+        <div class="evolution">
+          @for (node of p.evolutionChain; track node.id; let last = $last) {
+            <a class="evo-node" [routerLink]="['/pokemon', node.id]">
+              <img [src]="node.sprite" [alt]="node.name" width="64" height="64" />
+              <span>{{ node.name }}</span>
+            </a>
+            @if (!last) {
+              <span class="evo-arrow" aria-hidden="true">&rarr;</span>
+            }
+          }
+        </div>
+      }
+    </section>
+
+    <section class="panel">
+      <h2>{{ 'detail.moves' | translate }}</h2>
+      <ul class="pill-list">
+        @for (move of visibleMoves(); track move.name) {
+          <li>{{ move.name.replaceAll('-', ' ') }}</li>
+        }
+      </ul>
+      @if (!allMovesShown() && p.moves.length > visibleMoves().length) {
+        <button type="button" class="link-btn" (click)="allMovesShown.set(true)">
+          {{ 'detail.movesShowMore' | translate: { count: p.moves.length } }}
+        </button>
+      }
+    </section>
+  }
+  }
+</div>
