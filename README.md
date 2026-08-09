@@ -93,6 +93,37 @@ npm install
 npm start             # http://localhost:4200
 ```
 
+## Deploy em produção
+
+Front-end na Vercel, API no Render — os dois com camada gratuita. A API não
+foi feita para rodar como função serverless (o cache em memória e os
+favoritos em arquivo dependem de um processo Node persistente), por isso
+fica no Render em vez de também ir para a Vercel.
+
+### 1. API no Render
+
+1. No painel do Render: **New +** → **Blueprint** → conecte este
+   repositório. O `render.yaml` na raiz já configura o serviço (`rootDir:
+   backend`, build/start commands, health check em `/api/pokemon/health`).
+2. Depois do primeiro deploy, copie a URL gerada (ex.:
+   `https://pokedex-api.onrender.com`).
+
+### 2. Front-end na Vercel
+
+1. Em vercel.com: **Add New** → **Project** → importe este repositório.
+2. Em **Root Directory**, selecione `frontend`. O `frontend/vercel.json` já
+   define build command, output directory e o rewrite necessário para as
+   rotas do Angular Router funcionarem em produção.
+3. Antes do deploy, atualize `frontend/src/environments/environment.prod.ts`
+   com a URL da API do Render (passo 1) e faça commit — a Vercel builda a
+   partir do repositório, então a URL precisa estar no código antes do build.
+
+### 3. Fechar o CORS
+
+Com as duas URLs em mãos, volte no Render e defina a variável `CORS_ORIGIN`
+com a URL exata da Vercel (sem barra no final), para a API só aceitar
+requisições do seu front-end.
+
 ## Testes
 
 ```bash
@@ -107,6 +138,7 @@ pokedex/
   backend/     API Node.js/Express — ver backend/README.md para detalhes
   frontend/    SPA Angular — componentes em core/, shared/, features/
   docker-compose.yml
+  render.yaml   Blueprint de deploy da API no Render
 ```
 
 ## Decisões e trade-offs
@@ -122,11 +154,13 @@ pokedex/
 - **i18n com dicionários TypeScript embutidos, não arquivos JSON via
   HTTP**: evita problemas de `base href` em deploys estáticos (GitHub Pages)
   e mantém a troca de idioma instantânea, sem requisição extra.
+- **API no Render, não na Vercel**: o cache em memória e os favoritos em
+  arquivo só fazem sentido com um processo Node persistente; rodar isso como
+  função serverless exigiria trocar essas duas peças por Redis/KV e um banco
+  de verdade.
 
 ## Próximos passos
 
-- Publicar a API em um serviço com camada gratuita (Render/Railway) e
-  atualizar `frontend/src/environments/environment.prod.ts`
 - Trocar a persistência de favoritos de arquivo JSON para um banco real
   (Postgres/SQLite) quando o projeto justificar
 - Cobertura de testes E2E (Playwright) para os fluxos de busca e favoritos
