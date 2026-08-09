@@ -7,10 +7,6 @@ e cacheia dados da [PokeAPI](https://pokeapi.co/). O objetivo não foi só
 uma camada de BFF com cache, busca/filtro implementados no backend, testes
 automatizados e uma interface com identidade visual própria.
 
-> Projeto pessoal de [Victor Muzini](https://github.com/VhMuzini) — 10 anos
-> de experiência em desenvolvimento full stack (Angular, .NET Core,
-> Node.js/TypeScript).
-
 ## O problema
 
 A PokeAPI é excelente como fonte de dados, mas tem limitações reais para
@@ -134,8 +130,3 @@ pokedex/
 - Trocar a persistência de favoritos de arquivo JSON para um banco real
   (Postgres/SQLite) quando o projeto justificar
 - Cobertura de testes E2E (Playwright) para os fluxos de busca e favoritos
-
-## Autor
-
-**Victor Muzini** — desenvolvedor full stack sênior
-[GitHub](https://github.com/VhMuzini)
