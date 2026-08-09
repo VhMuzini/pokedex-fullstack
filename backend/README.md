@@ -27,7 +27,7 @@ Este backend resolve os dois problemas:
 ## Stack
 
 Node.js, Express, TypeScript, Zod (validacao), node-cache, Helmet,
-express-rate-limit, Jest (testes).
+express-rate-limit, Swagger/OpenAPI, Jest (testes).
 
 ## Rodando localmente
 
@@ -46,6 +46,15 @@ npm run dev      # http://localhost:3333
 | `npm start`     | Roda a build compilada                        |
 | `npm test`      | Roda a suite de testes (Jest)                 |
 | `npm run lint`  | Checagem de tipos sem gerar arquivos          |
+
+## Documentação interativa (Swagger)
+
+Com o servidor rodando, a documentação OpenAPI fica disponível em:
+
+- **`/api-docs`** — Swagger UI, com "Try it out" para testar as rotas direto do navegador
+- **`/openapi.json`** — o spec cru, caso queira importar no Postman/Insomnia
+
+Em produção: `https://pokedex-wkvl.onrender.com/api-docs`
 
 ## Endpoints
 
@@ -67,6 +76,7 @@ guardado pelo front-end no `localStorage`, sem necessidade de login).
 ```
 src/
   config/env.ts        Leitura e validacao de variaveis de ambiente (Zod)
+  openapi.ts             Spec OpenAPI usado pelo Swagger UI em /api-docs
   services/             Regra de negocio: pokeapi.service, cache.service, favorites.service
   controllers/           Validam entrada e formatam saida HTTP
   routes/                 Mapeiam rotas para controllers
@@ -82,3 +92,6 @@ tests/                      Testes de unidade com fetch mockado
 - **Favoritos em arquivo JSON, nao banco de dados**: mantem o projeto
   rodando sem infraestrutura externa; a camada `favorites.service.ts` isola
   essa decisao para que trocar por Postgres/Mongo seja uma mudanca local.
+- **Spec OpenAPI escrito a mao (`openapi.ts`), nao gerado via JSDoc**: para
+  uma API deste tamanho, um objeto TypeScript tipado e mais facil de manter
+  em sincronia com o codigo do que comentarios JSDoc espalhados pelas rotas.
