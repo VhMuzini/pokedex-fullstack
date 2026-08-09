@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: pokedex-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/pokemon/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3333
+      # Troque pela URL do front-end depois do deploy na Vercel
+      # (ex.: https://pokedex-fullstack.vercel.app)
+      - key: CORS_ORIGIN
+        sync: false
+      - key: POKEAPI_BASE_URL
+        value: https://pokeapi.co/api/v2
+      - key: CACHE_TTL_SECONDS
+        value: 3600
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 120
