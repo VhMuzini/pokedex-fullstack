@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PokemonService } from '../../core/services/pokemon.service';
 import { FavoritesService } from '../../core/services/favorites.service';
@@ -20,6 +21,7 @@ const INITIAL_MOVES_SHOWN = 8;
 export class PokemonDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly pokemonService = inject(PokemonService);
+  private readonly destroyRef = inject(DestroyRef);
   readonly favorites = inject(FavoritesService);
 
   readonly loading = signal(true);
@@ -34,21 +36,33 @@ export class PokemonDetailComponent implements OnInit {
   });
 
   ngOnInit() {
-    const idOrName = this.route.snapshot.paramMap.get('idOrName');
-    if (!idOrName) {
-      this.errored.set(true);
-      this.loading.set(false);
-      return;
-    }
-    this.pokemonService.detail(idOrName).subscribe({
-      next: (data) => {
-        this.pokemon.set(data);
-        this.loading.set(false);
-      },
-      error: () => {
+    // Angular reaproveita a mesma instancia do componente ao navegar entre
+    // rotas iguais com parametros diferentes (ex.: /pokemon/1 -> /pokemon/2),
+    // entao ngOnInit so roda uma vez. Observar route.paramMap (em vez de ler
+    // route.snapshot uma unica vez) garante que a busca dispare de novo a
+    // cada troca de parametro, inclusive ao clicar num node da evolucao.
+    this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
+      const idOrName = params.get('idOrName');
+      if (!idOrName) {
         this.errored.set(true);
         this.loading.set(false);
-      },
+        return;
+      }
+
+      this.loading.set(true);
+      this.errored.set(false);
+      this.allMovesShown.set(false);
+
+      this.pokemonService.detail(idOrName).subscribe({
+        next: (data) => {
+          this.pokemon.set(data);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.errored.set(true);
+          this.loading.set(false);
+        },
+      });
     });
   }
 
