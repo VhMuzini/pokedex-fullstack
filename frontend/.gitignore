@@ -41,7 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Icones do PWA sao gerados a partir de icon-assets/*.b64 no postinstall
+# Icones do PWA sao gerados a partir de icon-assets/icon.svg no postinstall
 # (ver scripts/generate-icons.js) - nao versionar os binarios direto.
 /public/icons/*.png
+/public/favicon.png
 /public/favicon.ico
