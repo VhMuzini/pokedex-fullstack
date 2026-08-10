@@ -29,6 +29,14 @@
   border: 1px solid var(--panel-border);
   border-radius: var(--radius-lg);
   padding: 32px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    gap: 20px;
+  }
 }
 
 .specimen__art {
@@ -40,6 +48,11 @@
   justify-content: center;
   background: var(--ink-2);
   border-radius: var(--radius-md);
+
+  @media (max-width: 640px) {
+    width: 160px;
+    height: 160px;
+  }
 
   img {
     max-width: 100%;
@@ -62,6 +75,10 @@ h1 {
   margin-top: 6px;
   font-size: 32px;
   text-transform: capitalize;
+
+  @media (max-width: 640px) {
+    font-size: 26px;
+  }
 }
 
 .genus {
@@ -75,6 +92,10 @@ h1 {
   gap: 8px;
   margin-top: 14px;
   flex-wrap: wrap;
+
+  @media (max-width: 640px) {
+    justify-content: center;
+  }
 }
 
 .tag--gold {
@@ -106,10 +127,18 @@ h1 {
   gap: 28px;
   margin-top: 20px;
 
+  @media (max-width: 640px) {
+    justify-content: center;
+  }
+
   div {
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    @media (max-width: 640px) {
+      align-items: center;
+    }
   }
 
   .label {

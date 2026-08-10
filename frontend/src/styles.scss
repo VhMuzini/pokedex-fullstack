@@ -88,6 +88,10 @@ button {
   max-width: 1180px;
   margin-inline: auto;
   padding-inline: 24px;
+
+  @media (max-width: 420px) {
+    padding-inline: 16px;
+  }
 }
 
 // carimbo mono usado em numeros de dex, contadores, badges de dados

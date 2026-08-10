@@ -4,6 +4,10 @@
     var(--ink-2);
   border-bottom: 1px solid var(--panel-border);
   padding: 64px 0 48px;
+
+  @media (max-width: 480px) {
+    padding: 40px 0 32px;
+  }
 }
 
 .hero__inner {

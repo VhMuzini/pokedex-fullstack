@@ -90,3 +90,20 @@
     gap: 14px;
   }
 }
+
+@media (max-width: 400px) {
+  .nav__inner {
+    gap: 10px;
+  }
+  .brand__text {
+    display: none;
+  }
+  .links {
+    gap: 10px;
+    font-size: 13px;
+  }
+  .lang {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+}
